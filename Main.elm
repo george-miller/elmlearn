@@ -6,12 +6,9 @@ import Html exposing (Html, beginnerProgram, div, text)
 main =
     beginnerProgram { model = model, view = view, update = update }
 
-type Post = { message : String, votes:Int, id:Int }
+type alias Post = { message : String, votes:Int, id:Int }
 
-type Model =
-    List { message : String
-    , votes : Int
-    }
+type alias Model = List Post
 
 
 type Msg
@@ -23,6 +20,7 @@ model : Model
 model =
     [ { message = "poo"
       , votes = 0
+      , id = 0
       }
     ]
 
@@ -31,7 +29,7 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Vote ->
-            List.map (\post -> {post | vote = post.vote+1}) model
+            List.map (\post -> {post | votes = (post.votes + 1)}) model
 
         CreatePost ->
             model
